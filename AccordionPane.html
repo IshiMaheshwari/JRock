@@ -2,12 +2,12 @@
 <html lang='en'>
 <head>
 <meta charset='utf-8'>
-<title>Accordian Pane</title>
+<title>Accordion Pane</title>
 <script>
 // #text is present acc to interpreter b/w div and heading
 var panels=[];	
 var expandedIndex=-1;
-function accordianHeadingClicked(x)
+function accordionHeadingClicked(x)
 {
 if(expandedIndex!=-1) panels[expandedIndex].style.display='none';
 panels[x+1].style.display=panels[x+1].oldDisplay;
@@ -15,8 +15,8 @@ expandedIndex=x+1;
 }
 function doit()
 {
-//taking reference of mymy
-let accord=document.getElementById("createAccordian");
+//taking reference of createAccordion
+let accord=document.getElementById("createAccordion");
 let children=accord.childNodes;//we need to traverse on its children
 let x;
 for(x=0;x<children.length;x++) 
@@ -41,7 +41,7 @@ if(panels[x+1].nodeName!="DIV") throw "Headings and division malformed to create
 function createClickHandler(i)
 {
 return function(){
-accordianHeadingClicked(i);
+accordionHeadingClicked(i);
 };
 }
 for(x=0;x<panels.length;x+=2)
@@ -55,7 +55,7 @@ window.addEventListener('load',doit);
 </script>
 </head>
 <body>
-<div id='createAccordian'>
+<div id='createAccordion'>
 <h3>Heading 1</h3>
 <div>
 1 1 1 1 1 1 1 1 1 1 
