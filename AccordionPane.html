@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Accordian Pane</title>
+<script>
+// #text is present acc to interpreter b/w div and heading
+var panels=[];	
+var expandedIndex=-1;
+function accordianHeadingClicked(x)
+{
+if(expandedIndex!=-1) panels[expandedIndex].style.display='none';
+panels[x+1].style.display=panels[x+1].oldDisplay;
+expandedIndex=x+1;
+}
+function doit()
+{
+//taking reference of mymy
+let accord=document.getElementById("createAccordian");
+let children=accord.childNodes;//we need to traverse on its children
+let x;
+for(x=0;x<children.length;x++) 
+{
+//alert(children[x].nodeName);
+if(children[x].nodeName=="H3")
+{
+panels[panels.length]=children[x];
+}
+if(children[x].nodeName=="DIV")
+{
+panels[panels.length]=children[x];
+}
+}
+if(panels.length%2!=0) throw "Headings and division malformed to create accordian";
+// at every even there will be heading ie at 0,2,... and at every odd there will be division at 1,3,5,..
+for(x=0;x<panels.length;x+=2)
+{
+if(panels[x].nodeName!="H3") throw "Headings and division malformed to create accordian";
+if(panels[x+1].nodeName!="DIV") throw "Headings and division malformed to create accordian";
+}
+function createClickHandler(i)
+{
+return function(){
+accordianHeadingClicked(i);
+};
+}
+for(x=0;x<panels.length;x+=2)
+{
+panels[x].onclick=createClickHandler(x);
+panels[x+1].oldDisplay=panels[x+1].style.display;// the original display that user had made will come in oldDisplay 
+panels[x+1].style.display="none"; // display value can be inline or block
+}
+}
+window.addEventListener('load',doit);
+</script>
+</head>
+<body>
+<div id='createAccordian'>
+<h3>Heading 1</h3>
+<div>
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 
+</div>
+<h3>Heading 2</h3>
+<div>
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2
+</div>
+<h3>Heading 3</h3>
+<div>
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 
+</div>
+</div>
+</body>
+</html>
